@@ -1,0 +1,1 @@
+F:\Bigdata\kafka\kafka\bin\zookeeper-server-start.sh F:\Bigdata\kafka\kafka\config\zookeeper.properties
