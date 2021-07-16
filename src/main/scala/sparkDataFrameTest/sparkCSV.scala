@@ -1,10 +1,13 @@
 package sparkDataFrameTest
 
+import org.apache.log4j.Logger
 import org.apache.spark.sql.SparkSession
 
-object sparkCSV {
+object sparkCSV extends Serializable {
+  @transient lazy val logger: Logger = Logger.getLogger(getClass.getName)
   def main(args: Array[String]): Unit = {
-    print("this application will create a DF on CSV file!")
+
+    logger.info("this application will create a DF on CSV file!")
     System.setProperty("hadoop.home.dir", "C:\\hadoop")
 
     val spark = SparkSession.builder()
@@ -12,9 +15,9 @@ object sparkCSV {
       .master("local[*]")
       .getOrCreate()
 
-    spark.sparkContext.setLogLevel("ERROR")
+    //spark.sparkContext.setLogLevel("ERROR")
 
-    val filename = "F:\\code\\myspark3\\data\\titanic.csv"
+    val filename = "E:\\code\\myspark3\\data\\titanic.csv"
 
     val titanic = spark.read
       .option("header", true)

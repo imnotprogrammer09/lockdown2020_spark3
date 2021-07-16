@@ -1,6 +1,9 @@
 package sparkDataFrameTest
 
+
+import com.typesafe.config.ConfigFactory
 import org.apache.spark.sql.SparkSession
+
 
 object sparkMongoDF {
   def main(args: Array[String]): Unit = {
@@ -12,6 +15,11 @@ object sparkMongoDF {
       .master("local[*]")
       .getOrCreate()
 
+
+    val conf = ConfigFactory.load
+
+
+
     spark.sparkContext.setLogLevel("ERROR")
 
     //val mongodb_database = "wb"
@@ -19,10 +27,11 @@ object sparkMongoDF {
 
     // making a connection to MongoDB and loading data into a dataframe.
     //val mongouri = "mongodb://localhost"
+    val urim = conf.getString("mongouri")
 
     val mongodf = spark.read
       .format("mongo")
-      .option("uri", "mongodb://127.0.0.1/wb.worldbank" )
+      .option("uri", urim )
       // .option("database", mongodb_database)
       // .option("collection", mongodb_collection)
       .load()
